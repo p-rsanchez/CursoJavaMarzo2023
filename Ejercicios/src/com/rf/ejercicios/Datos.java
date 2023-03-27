@@ -11,12 +11,12 @@ public class Datos {
 	private boolean ACTIVO;
 	
 	
-	public Datos(int dia, int nDni, float precio, boolean aCTIVO) {
+	public Datos(int dia, int nDni, float precio, boolean ACTIVO) {
 		super();
 		this.dia = dia;
 		this.nDni = nDni;
 		this.precio = precio;
-		ACTIVO = aCTIVO;
+		ACTIVO = ACTIVO;
 	}
 
 	public int getDia() {
@@ -47,8 +47,8 @@ public class Datos {
 		return ACTIVO;
 	}
 	
-	public void setACTIVO(boolean aCTIVO) {
-		ACTIVO = aCTIVO;
+	public void setACTIVO(boolean ACTIVO) {
+		ACTIVO = ACTIVO;
 	}
 
 	@Override
