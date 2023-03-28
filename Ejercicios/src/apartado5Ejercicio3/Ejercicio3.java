@@ -4,8 +4,10 @@ public class Ejercicio3 {
 
 	public static boolean versionUno(int dia, int mes, int anyo) {
 		
-		if(dia < 31) {
-			return true;
+		if(dia > 0 && dia < 31) {
+			if(mes > 0 && mes < 13) {
+				return true;
+			}
 		}
 		
 		return false;
