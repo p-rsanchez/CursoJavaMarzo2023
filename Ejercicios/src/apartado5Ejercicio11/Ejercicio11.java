@@ -25,6 +25,7 @@ public class Ejercicio11 {
 			}
 		}
 		
+		System.out.println("Numero de primos = " + primos.size());
 		System.out.println(primos);
 		
 	}
