@@ -1,22 +1,22 @@
-package com.rf.ejercicios;
+package apartado3Ejercicio1;
 
 import java.text.DecimalFormat;
 
-public class Datos {
+public class Datos2 {
 	DecimalFormat formato1 = new DecimalFormat("#.00");
 	
-	private int dia;
-	private int nDni;
-	private float precio;
-	private boolean ACTIVO;
+	public int dia;
+	public int nDni;
+	public float precio;
+	final boolean ACTIVO;
 	
 	
-	public Datos(int dia, int nDni, float precio, boolean ACTIVO) {
+	public Datos2(int dia, int nDni, float precio) {
 		super();
 		this.dia = dia;
 		this.nDni = nDni;
 		this.precio = precio;
-		ACTIVO = ACTIVO;
+		ACTIVO = true;
 	}
 
 	public int getDia() {
@@ -45,10 +45,6 @@ public class Datos {
 	
 	public boolean isACTIVO() {
 		return ACTIVO;
-	}
-	
-	public void setACTIVO(boolean ACTIVO) {
-		ACTIVO = ACTIVO;
 	}
 
 	@Override
