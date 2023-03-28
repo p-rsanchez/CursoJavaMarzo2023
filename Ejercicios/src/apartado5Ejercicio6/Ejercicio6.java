@@ -9,7 +9,7 @@ public class Ejercicio6 {
 		
 		ArrayList<Integer> numeros = new ArrayList<Integer>();
 
-		for(int i = 0; i < 101; i+=23) {
+		for(int i = 100; i >= 0; i-=23) {
 			numeros.add(i);
 		}
 		
