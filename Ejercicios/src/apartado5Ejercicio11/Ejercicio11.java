@@ -14,6 +14,10 @@ public class Ejercicio11 {
 			for(int j = 1; j <= i; j++) {
 				if(i%j == 0) {
 					contador++;
+					
+					if(contador > 2) {
+						continue;
+					}
 				}
 			}
 			
