@@ -12,8 +12,8 @@ public class Cuenta {
 	public Cuenta(String numero, String titular) {
 		super();
 		movimientos = new ArrayList<Movimiento>();
-		numero = numero;
-		titular = titular;
+		this.numero = numero;
+		this.titular = titular;
 	}
 	
 	public void addMovimiento(Movimiento m) {
@@ -32,11 +32,7 @@ public class Cuenta {
 	}
 	
 	public void ingresar(double x) {
-		Movimiento movimiento = new Movimiento();
-		
-		movimiento.setImporte(x);
-		
-		addMovimiento(movimiento);
+		ingresar("INGRESO EN EFECTIVO", x);
 				
 	}
 	
@@ -50,15 +46,7 @@ public class Cuenta {
 	}
 	
 	public void retirar(double x) {
-		Movimiento movimiento = new Movimiento();
-		
-		if(getSaldo() > x) {
-			movimiento.setImporte(x*-1);
-			addMovimiento(movimiento);
-		}else {
-			System.err.println("Saldo en cuenta insuficiente.");
-		}
-		
+		retirar("RETIRADA DE EFECTIVO", x);
 	}
 	
 	public void retirar(String concepto, double x) {
@@ -74,8 +62,10 @@ public class Cuenta {
 
 	}
 	
-	public void pagoEnEstablecimiento(String datos, double x) {
-		System.out.println("Compra en -> " + datos + " - Total = " + x);
+	public void verMovimientos() {
+		for(Iterator<Movimiento> mov = movimientos.iterator(); mov.hasNext();) {
+			Movimiento movimiento = mov.next();
+			System.out.println(movimiento);
+		}
 	}
-	
 }

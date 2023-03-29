@@ -2,41 +2,85 @@ package Banco;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
 
 public class Credito extends Tarjeta{
 
 	private Double credito;
 	private ArrayList<Movimiento> movimientos;
 	
-	public Credito(String numero, String titular, LocalDate fechaDeCaducidad, String numero2, String titular2,
-			Double credito, ArrayList<Movimiento> movimientos) {
-		super(numero, titular, fechaDeCaducidad, numero2, titular2);
+	public Credito(String numero, String titular, LocalDate fechaDeCaducidad, Double credito) {
+		super(numero, titular, fechaDeCaducidad);
 		this.credito = credito;
-		this.movimientos = movimientos;
+		this.movimientos = new ArrayList<Movimiento>();
 	}
 	
 	@Override
 	public Double getSaldo() {
-		return cuentaAsociada.getSaldo();
+		double total = 0;
+		
+		for(Iterator<Movimiento> mov = movimientos.iterator(); mov.hasNext();) {
+			Movimiento movimiento = mov.next();
+			total += movimiento.getImporte();
+		}
+		
+		return total;
 	}
 	
-	@Override
+	public Double getCreditoDisponible() {
+		return credito + getSaldo();
+	}
+	
 	public void ingresar(double x) {
-		cuentaAsociada.ingresar("Ingreso en cuenta asociada (cajero automático)" ,x);
+		Movimiento mov = new Movimiento();
+		mov.setConcepto("Ingreso en cuenta asociada (cajero automatico)");
+		mov.setImporte(x);
+		movimientos.add(mov);
 	}
 	
 	public void liquidar(int mes, int anyo) {
+		Movimiento liquidacion = new Movimiento();
+		liquidacion.setConcepto("Liquidacion de operaciones tarj. credito, " + mes + " de " + anyo);
+		
+		double total = 0;
+		
+		for(int i = this.movimientos.size()-1; i >= 0; i--) {
+			Movimiento mov = (Movimiento) movimientos.get(i);
+			
+			if(mov.getFecha().getMonthValue() + 1 == mes && mov.getFecha().getYear() == anyo) {
+				total += mov.getImporte();
+				movimientos.remove(mov);
+			}
+			
+		}
+		
+		liquidacion.setImporte(total);
+		
+		if(total != 0) {
+			getCuentaAsociada().addMovimiento(liquidacion);
+		}
 		
 	}
 	
-	@Override
 	public void pagoEnEstablecimiento(String datos, double x) {
-		cuentaAsociada.pagoEnEstablecimiento(datos, x);
+		Movimiento mov = new Movimiento();
+		mov.setConcepto("Compra en -> " + datos);
+		mov.setImporte(x);
+		movimientos.add(mov);
 	}
 	
-	@Override
 	public void retirar(double x) {
-		cuentaAsociada.retirar(x);
+		Movimiento mov = new Movimiento();
+		
+		if(getSaldo() > x) {
+			mov.setConcepto("Retiro en cuenta asociada (cajero automatico)");
+			mov.setImporte(x*-1);
+			movimientos.add(mov);
+		}else {
+			System.err.println("Saldo en cuenta insuficiente.");
+		}
+		
 	}
 	
 }

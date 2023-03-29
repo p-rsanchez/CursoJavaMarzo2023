@@ -36,5 +36,12 @@ public class Movimiento {
 	public void setImporte(Double importe) {
 		this.importe = importe;
 	}
+
+	@Override
+	public String toString() {
+		return "Movimiento [concepto=" + concepto + ", fecha=" + fecha + ", importe=" + importe + "]";
+	}
+	
+	
 	
 }
